@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+</head>
+<style>
+    
+@media (max-width: 600px) {
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg,#4F46E5,#7C3AED,#2563EB);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    #div1{
+        width: 100%;
+        max-width: 500px;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 35px 25px;
+        border-radius: 25px;
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        text-align: center;
+    }
+
+    #question{
+        color: white;
+        font-size: 28px;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+
+    #timer{
+        width: 75px;
+        height: 75px;
+        margin: 0 auto 30px;
+        background: #EF4444;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+        box-shadow: 0 10px 25px rgba(239,68,68,0.4);
+    }
+
+    #div2,
+    #div3{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .option{
+        width: 100%;
+        max-width: 350px;
+        padding: 16px;
+        border: none;
+        border-radius: 15px;
+        background: rgba(255,255,255,0.9);
+        color: #333;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .3s ease;
+        position: static;
+        box-shadow: 0 5px 15px rgba(0,0,0,.1);
+    }
+
+    .option:hover{
+        background: #2563EB;
+        color: white;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(37,99,235,.4);
+    }
+
+    .option:active{
+        transform: scale(.97);
+    }
+
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+        overflow: hidden;
+        border-radius: 15px;
+        background: white;
+    }
+
+    th{
+        background: #2563EB;
+        color: white;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    td{
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        color: black;
+    }
+
+    tr:hover{
+        background: #f5f7ff;
+    }
+
+    h2, h3{
+        color: white;
+        margin-bottom: 15px;
+    }
+}
+</style>
+<body>
+    <center>
+    <div id="div1">
+        <h2 id="question">Question</h2>
+        <div id="timer">7</div>
+        <div id="div2">
+        <button class="option" id="btn1"></button>
+        <button class="option" id="btn2"></button>
+        </div>
+        <div id="div3">
+        <button class="option" id="btn3"></button>
+        <button class="option" id="btn4"></button>
+        </div>
+    </div>
+    </center>
+</body>
+<script>
+    const questions = [
+        {
+            question: "What is the first book of the bible?",
+            options: ["Genesis", "Exodus", "Matthew", "Revelation"],
+            answer: "Genesis"
+        },
+        {
+            question: "How many days did it rain during Noah's flood?",
+            options: ["7 days", "20 days", "40days", "100 days"],
+            answer: "40 days"
+        },
+        {
+            question: "What weapon did David use to defeat Goliath?",
+            options: ["Sword", "Sling", "Bow", "Spear"],
+            answer: "Sling"
+        },
+        {
+            question: "Where was Jesus born?",
+            options: ["Nazareth", "Bethlehem", "Jeusalem", "Galilee"],
+            answer: "Bethlehem"
+        },
+        {
+            question: "What is the shortest verse in the bible?",
+            options: ["God is love", "Jesus wept", "Follow me", "Fear not"],
+            answer: "Jesus wept"
+        },
+        {
+            question: "Which is the first fruit of the spirit mentioned in Galatians?",
+            options: ["Joy", "Peace", "Love", "Faithfulness"],
+            answer: "Love"
+        },
+        {
+            question: "Who led the Isrealites out of Egypt?",
+            options: ["Abraham", "Moses", "David", "Solomon"],
+            answer: "Moses"
+        },
+        {
+            question: "Where were the ten commandments given?",
+            options: ["Mount Sinai", "Mount Zion", "Mount Olives", "Mount Carmel"],
+            answer: "Genesis"
+        },
+        {
+            question: "What is the capital city of Nigeria?",
+            options: ["Lagos", "Abuja", "Kano", "Ibadan"],
+            answer: "Abuja"
+        },
+        {
+            question: "Which planet is known as te red Planet?",
+            options: ["Earth", "Mars", "Jupitar", "Venus"],
+            answer: "Mars"
+        },
+        {
+            question: "What is the chemical formula for water?",
+            options: ["CO2", "H2O", "O2", "NaCl"],
+            answer: "H2O"
+        },
+        {
+            question: "Which is the largest continent in the world?",
+            options: ["Africa", "Asia", "Europe", "Australia"],
+            answer: "Asia"
+        },
+        {
+            question: "Which animal is the fatest on land",
+            options: ["Lion", "Cheetah", "Horse", "Leopard"],
+            answer: "Cheetah"
+        },
+        {
+            question: "What is the currency of Nigeria?",
+            options: ["Dollar", "Cedi", "Naira", "Rand"],
+            answer: "Naira"
+        },
+        {
+            question: "Which is the largest ocean on Earth?",
+            options: ["Atlantic Ocean", "Indian Ocean", "Pacific Ocean", "Arctic Ocean"],
+            answer: "Pacific Ocean"
+        },
+        {
+            question: "Who was Abraham's wife?",
+            options: ["Rachel", "Sarah", "Rebekah", "Leah"],
+            answer: "Sarah"
+        },
+        {
+            question: "Which woman was Isaac's wife?",
+            options: ["Rebekah", "Esther", "Ruth", "Abigail"],
+            answer: "Rebekah"
+        },
+        {
+            question: "Who was Jacob's first wife?",
+            options: ["Rachel", "Leah", "Dinah", "Miriam"],
+            answer: "Leah"
+        },
+        {
+            question: "Which wife of Jacob wa the mother of Joseph and Benjamin?",
+            options: ["Leah", "Bilah", "Rachel", "Zilpah"],
+            answer: "Rachel"
+        },
+        {
+            question: "What was the name of Moses' wife?",
+            options: ["Deborah", "Hannah", "Zipporah", "Naomi"],
+            answer: "Zipporah"
+        },
+        {
+            question: "Which king was married to Jezebel?",
+            options: ["David", "Solomon", "Ahab", "Saul"],
+            answer: "Ahab"
+        },
+        {
+            question: "Who was David's wife that helped him escape from saul?",
+            options: ["Abigail", "Bathsheda", "Michal", "Tamar"],
+            answer: "Michal"
+        },
+        {
+            question: "Which is the largest ocean on Earth?",
+            options: ["Esther", "Ruth", "Naomi", "Martha"],
+            answer: "Ruth"
+        },
+        {
+            question: "What was the name of Nabal's wife who later became David's wife?",
+            options: ["Abigail", "MicheaL", "Esther", "Rebekah"],
+            answer: "Abigail"
+        },
+        {
+            question: "Which jewish woman became queen and wife of king Ahasuerus?",
+            options: ["Deborah", "Esther", "Hannah", "Sarah"],
+            answer: "Esther"
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let timeleft = 7;
+    let timer;
+
+    const questionEl = 
+    document.getElementById("question");
+    const optionBtns = 
+    document.querySelectorAll(".option");
+    const timerEl = document.getElementById("timer");
+
+    function loadQuestion(){
+        clearInterval(timer)
+
+        if(currentQuestion >= questions.length){
+
+            let playerName = prompt("Enter your name");
+
+            let scores =
+            JSON.parse(localStorage.getItem("scores")) || [];
+
+            scores.push({
+                name:playerName,
+                score:score
+            })
+
+            scores.sort((a,b)=>b.score-a.score);
+
+            scores = scores.slice(0,10);
+
+            localStorage.setItem(
+                "scores",
+                JSON.stringify(scores)
+            );
+
+            let rows = "";
+
+            scores.forEach((player,index)=>{
+
+                rows += `
+                <tr>
+                <td>${index+1}</td>
+                <td>${player.name}</td>
+                <td>${player.score}</td>
+                </tr>
+                `;
+
+            });
+
+            document.getElementById("div1").innerHTML = 
+            `<h2>Game over</h2>
+            <h3>Your Score: ${score}/${questions.length}<h3>
+            
+            <table>
+            <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+            </tr>
+
+            ${rows}
+
+            </table>
+
+            <br>
+
+            `;
+
+            return;
+        }     
+
+        const q = questions[currentQuestion];
+
+        questionEl.textContent = q.question;
+
+        optionBtns.forEach((btn,index)=>{
+            btn.textContent = q.options[index];
+
+            btn.onclick = () => {
+                if(btn.textContent === q.answer){
+                    score++
+                }
+                currentQuestion++;
+                loadQuestion();
+            };
+        });
+
+        timeLeft = 7;
+        timerEl.textContent = timeLeft;
+
+        timer = setInterval(()=>{
+            timeLeft--;
+            timerEl.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        },1000);  
+    }
+
+    loadQuestion();
+
+    
+</script>
+</html>

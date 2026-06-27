@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+@media(max-width:600px){
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background:linear-gradient(135deg,#4F46E5,#7C3AED,#2563EB);
+        padding:20px;
+    }
+
+    #div1{
+        width:100%;
+        max-width:550px;
+        padding:40px 30px;
+
+        background:rgba(255,255,255,0.12);
+        backdrop-filter:blur(15px);
+        -webkit-backdrop-filter:blur(15px);
+
+        border-radius:25px;
+        border:1px solid rgba(255,255,255,0.2);
+
+        box-shadow:0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    h2{
+        color:white;
+        text-align:center;
+        font-size:32px;
+        margin-bottom:30px;
+    }
+
+    ul{
+        list-style-position:inside;
+    }
+
+    li{
+        color:white;
+        font-size:18px;
+        margin-bottom:18px;
+        line-height:1.6;
+    }
+
+    h3{
+        font-weight:normal;
+    }
+
+    button{
+        display:block;
+        width:220px;
+        height:60px;
+        margin:35px auto 0;
+        border:none;
+        border-radius:15px;
+        cursor:pointer;
+
+        background:rgba(255,255,255,0.9);
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+        transition:all .3s ease;
+    }
+
+    button:hover{
+        background:#2563EB;
+        transform:translateY(-4px);
+        box-shadow:0 10px 25px rgba(37,99,235,.4);
+    }
+
+    button:hover a{
+        color:white;
+    }
+
+    a{
+        display:block;
+        width:100%;
+        height:100%;
+        line-height:60px;
+        text-align:center;
+        text-decoration:none;
+        font-size:20px;
+        font-weight:600;
+        color:#333;
+        transition:.3s;
+    }
+
+}
+</style>
+</head>
+<body>
+    <div id="div1">
+        <h2>Quiz game rules</h2>
+        <ul>
+          <h3><li>Each question has 7 seconds.</li><br>
+            <li>Select only one answer per question.</li><br>
+            <li>Correct answers earn 1 point.</li><br>
+            <li>Wrong answer earn 0 point.</li><br>
+            <li>If time runs out, the question is skipped.</li><br>
+            <li>Do not refresh the page during game.</li><br>
+            <li>Your final score will be shown at the end.</li><br>
+            <li>The top ten highest scorer are saved on the leaderboard.</li><br>
+            <li>Click start to start the game.</li></h3>  <br>
+        </ul>
+        <button onclick="startGame()"><a href="game.html">Start</a> </button>
+    </div>
+</body>
+</html>
